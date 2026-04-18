@@ -21,13 +21,13 @@ You should find your program in the `target/release` folder.
 ### Download a file (needs user token in config)
 
 ```bash
-pixeldrain-cli get <url>
+pixeldrain get <url>
 ```
 
 ### Upload a file (needs user token in config)
 
 ```bash
-pixeldrain-cli upload <file-path>
+pixeldrain upload <file-path>
 ```
 
 ## Library Documentation
