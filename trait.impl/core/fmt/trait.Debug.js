@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["pixeldrain",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.94.1/core/fmt/trait.Debug.html\" title=\"trait core::fmt::Debug\">Debug</a> for <a class=\"enum\" href=\"pixeldrain/enum.Error.html\" title=\"enum pixeldrain::Error\">Error</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.94.1/core/fmt/trait.Debug.html\" title=\"trait core::fmt::Debug\">Debug</a> for <a class=\"struct\" href=\"pixeldrain/struct.Client.html\" title=\"struct pixeldrain::Client\">Client</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.94.1/core/fmt/trait.Debug.html\" title=\"trait core::fmt::Debug\">Debug</a> for <a class=\"struct\" href=\"pixeldrain/struct.FileInfo.html\" title=\"struct pixeldrain::FileInfo\">FileInfo</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.94.1/core/fmt/trait.Debug.html\" title=\"trait core::fmt::Debug\">Debug</a> for <a class=\"struct\" href=\"pixeldrain/struct.FileUpload.html\" title=\"struct pixeldrain::FileUpload\">FileUpload</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.94.1/core/fmt/trait.Debug.html\" title=\"trait core::fmt::Debug\">Debug</a> for <a class=\"struct\" href=\"pixeldrain/struct.ListUserFilesResponse.html\" title=\"struct pixeldrain::ListUserFilesResponse\">ListUserFilesResponse</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.94.1/core/fmt/trait.Debug.html\" title=\"trait core::fmt::Debug\">Debug</a> for <a class=\"struct\" href=\"pixeldrain/struct.UploadFileResponse.html\" title=\"struct pixeldrain::UploadFileResponse\">UploadFileResponse</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[1612]}
