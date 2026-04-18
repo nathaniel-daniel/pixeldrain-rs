@@ -68,8 +68,10 @@ pub async fn exec(client: &pixeldrain::Client, options: Options) -> anyhow::Resu
 
     let mut written = 0;
     while let Some(chunk) = file_response.chunk().await? {
+        let chund_len_u64 = u64::try_from(chunk.len())?;
         file.write_all(&chunk).await?;
-        written += u64::try_from(chunk.len())?;
+        written += chund_len_u64;
+        progress_bar.inc(chund_len_u64);
     }
     ensure!(written == content_length);
 
