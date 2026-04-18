@@ -2,6 +2,7 @@ mod client;
 mod model;
 
 pub use self::client::Client;
+pub use self::model::FileInfo;
 pub use self::model::ListUserFilesResponse;
 pub use self::model::UploadFileResponse;
 pub use reqwest::Body;

@@ -30,6 +30,7 @@ pub fn get_config_dir() -> anyhow::Result<PathBuf> {
 enum Subcommand {
     Config(self::commands::config::Options),
     GenerateCompletions(self::commands::generate_completions::Options),
+    Get(self::commands::get::Options),
     ListUser(self::commands::list_user::Options),
     Upload(self::commands::upload::Options),
 }
@@ -49,6 +50,7 @@ async fn async_main(options: Options) -> anyhow::Result<()> {
         Subcommand::GenerateCompletions(options) => {
             self::commands::generate_completions::exec(options)?
         }
+        Subcommand::Get(options) => self::commands::get::exec(&client, options).await?,
         Subcommand::ListUser(options) => self::commands::list_user::exec(&client, options).await?,
         Subcommand::Upload(options) => self::commands::upload::exec(&client, options).await?,
     }

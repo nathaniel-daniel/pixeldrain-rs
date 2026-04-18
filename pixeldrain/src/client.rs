@@ -1,4 +1,5 @@
 use crate::Error;
+use crate::FileInfo;
 use crate::FileUpload;
 use crate::ListUserFilesResponse;
 use crate::UploadFileResponse;
@@ -48,6 +49,8 @@ impl Client {
     }
 
     /// List user files.
+    ///
+    /// This function requires a token.
     pub async fn list_user_files(&self) -> Result<ListUserFilesResponse, Error> {
         let token = self.get_token()?;
         let response = self
@@ -64,6 +67,8 @@ impl Client {
     }
 
     /// Upload a file.
+    ///
+    /// This function requires a token.
     pub async fn upload_file(&self, file: FileUpload) -> Result<UploadFileResponse, Error> {
         let token = self.get_token()?;
 
@@ -82,6 +87,35 @@ impl Client {
         let value: UploadFileResponse = response.json().await?;
 
         Ok(value)
+    }
+
+    /// Get info about a file.
+    ///
+    /// This function does NOT require a token.
+    pub async fn get_file_info(&self, id: &str) -> Result<FileInfo, Error> {
+        let response = self
+            .client
+            .get(format!("https://pixeldrain.com/api/file/{id}/info"))
+            .send()
+            .await?
+            .error_for_status()?;
+        let value: FileInfo = response.json().await?;
+
+        Ok(value)
+    }
+
+    /// Download a file.
+    ///
+    /// This function does NOT require a token.
+    pub async fn download_file(&self, id: &str) -> Result<reqwest::Response, Error> {
+        let response = self
+            .client
+            .get(format!("https://pixeldrain.com/api/file/{id}"))
+            .send()
+            .await?
+            .error_for_status()?;
+
+        Ok(response)
     }
 }
 

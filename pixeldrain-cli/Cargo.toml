@@ -23,6 +23,7 @@ serde = { version = "1.0.228", features = ["derive"] }
 shadow-rs = "1.7.1"
 tokio = { version = "1.52.1", features = [ "rt-multi-thread", "fs" ] }
 toml = "1.1.2"
+url = "2.5.8"
 
 [build-dependencies]
 shadow-rs = "1.7.1"

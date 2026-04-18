@@ -1151,6 +1151,7 @@ dependencies = [
  "shadow-rs",
  "tokio",
  "toml",
+ "url",
 ]
 
 [[package]]
