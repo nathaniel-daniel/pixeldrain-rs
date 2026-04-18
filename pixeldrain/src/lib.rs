@@ -61,10 +61,30 @@ pub enum Error {
 #[cfg(test)]
 mod test {
     use super::*;
+    use std::path::Path;
     use std::sync::LazyLock;
 
-    const TOKEN: LazyLock<String> =
-        LazyLock::new(|| std::fs::read_to_string("token.txt").expect("failed to load token.txt"));
+    fn try_read_to_string<P>(path: P) -> std::io::Result<Option<String>>
+    where
+        P: AsRef<Path>,
+    {
+        match std::fs::read_to_string(path) {
+            Ok(value) => Ok(Some(value)),
+            Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(None),
+            Err(error) => Err(error),
+        }
+    }
+
+    fn load_token() -> String {
+        if let Some(token) = try_read_to_string("token.txt").expect("failed to load token.txt") {
+            return token;
+        }
+
+        std::env::var("PIXELDRAIN_RS_TOKEN")
+            .expect("missing `PIXELDRAIN_RS_TOKEN` environment variable")
+    }
+
+    static TOKEN: LazyLock<String> = LazyLock::new(load_token);
 
     #[tokio::test]
     async fn user_list_works() {
