@@ -2,7 +2,7 @@ use anyhow::Context;
 
 use tokio::io::AsyncWriteExt;
 
-const DEFAULT_CONFIG: &str = r#"# Your account api token. (Required)
+const DEFAULT_CONFIG: &str = r#"# Your account api token. (Optional)
 # token = "YOUR TOKEN HERE"
 "#;
 

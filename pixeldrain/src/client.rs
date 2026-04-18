@@ -38,14 +38,14 @@ impl Client {
         self.state.lock().expect("state poisoned").token = Some(encoded_token);
     }
 
+    /// Try to get the token.
+    pub fn try_get_token(&self) -> Option<String> {
+        self.state.lock().expect("state poisoned").token.clone()
+    }
+
     /// Get the token.
     pub fn get_token(&self) -> Result<String, Error> {
-        self.state
-            .lock()
-            .expect("state poisoned")
-            .token
-            .clone()
-            .ok_or(Error::MissingToken)
+        self.try_get_token().ok_or(Error::MissingToken)
     }
 
     /// List user files.
@@ -93,12 +93,15 @@ impl Client {
     ///
     /// This function does NOT require a token.
     pub async fn get_file_info(&self, id: &str) -> Result<FileInfo, Error> {
-        let response = self
+        let token = self.try_get_token();
+
+        let mut request = self
             .client
-            .get(format!("https://pixeldrain.com/api/file/{id}/info"))
-            .send()
-            .await?
-            .error_for_status()?;
+            .get(format!("https://pixeldrain.com/api/file/{id}/info"));
+        if let Some(token) = token {
+            request = request.header(AUTHORIZATION, format!("Basic {token}"));
+        }
+        let response = request.send().await?.error_for_status()?;
         let value: FileInfo = response.json().await?;
 
         Ok(value)
@@ -108,12 +111,15 @@ impl Client {
     ///
     /// This function does NOT require a token.
     pub async fn download_file(&self, id: &str) -> Result<reqwest::Response, Error> {
-        let response = self
+        let token = self.try_get_token();
+
+        let mut request = self
             .client
-            .get(format!("https://pixeldrain.com/api/file/{id}"))
-            .send()
-            .await?
-            .error_for_status()?;
+            .get(format!("https://pixeldrain.com/api/file/{id}"));
+        if let Some(token) = token {
+            request = request.header(AUTHORIZATION, format!("Basic {token}"));
+        }
+        let response = request.send().await?.error_for_status()?;
 
         Ok(response)
     }

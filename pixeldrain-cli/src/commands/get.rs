@@ -1,3 +1,4 @@
+use crate::Config;
 use anyhow::Context;
 use anyhow::ensure;
 use std::path::PathBuf;
@@ -27,6 +28,11 @@ fn extract_id(url: &Url) -> anyhow::Result<String> {
 }
 
 pub async fn exec(client: &pixeldrain::Client, options: Options) -> anyhow::Result<()> {
+    let config = Config::load().context("Failed to load config")?;
+    if let Some(token) = config.and_then(|config| config.token) {
+        client.set_token(&token);
+    }
+
     let file_id = extract_id(&options.url)?;
 
     let file_info = client
