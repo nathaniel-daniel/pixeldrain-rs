@@ -1,0 +1,28 @@
+[package]
+name = "pixeldrain-cli"
+version = "0.0.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+
+[[bin]]
+name = "pixeldrain"
+path = "src/main.rs"
+doc = false
+
+[dependencies]
+anyhow = "1.0.102"
+argh = "0.1.19"
+clap = { version = "4.6.1", features = ["derive"] }
+clap_complete = "4.6.2"
+etcetera = "0.11.0"
+indicatif = "0.18.4"
+opener = "0.8.4"
+pin-project-lite = "0.2.17"
+pixeldrain = { path = "../pixeldrain" }
+serde = { version = "1.0.228", features = ["derive"] }
+shadow-rs = "1.7.1"
+tokio = { version = "1.52.1", features = [ "rt-multi-thread", "fs" ] }
+toml = "1.1.2"
+
+[build-dependencies]
+shadow-rs = "1.7.1"
