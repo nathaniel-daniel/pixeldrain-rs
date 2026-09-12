@@ -52,10 +52,10 @@ impl FileUpload {
 /// Library error
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
-    #[error("http error")]
+    #[error("Http error")]
     Reqwest(#[from] reqwest::Error),
 
-    #[error("missing token")]
+    #[error("Missing token")]
     MissingToken,
 }
 
@@ -77,22 +77,24 @@ mod test {
     }
 
     fn load_token() -> String {
-        if let Some(token) = try_read_to_string("token.txt").expect("failed to load token.txt") {
+        if let Some(token) = try_read_to_string("token.txt").expect("Failed to load token.txt") {
             return token;
         }
 
         std::env::var("PIXELDRAIN_RS_TOKEN")
-            .expect("missing `PIXELDRAIN_RS_TOKEN` environment variable")
+            .expect("Missing `PIXELDRAIN_RS_TOKEN` environment variable")
     }
 
     static TOKEN: LazyLock<String> = LazyLock::new(load_token);
 
+    // Github CI seems to be blocked by pixeldrain.
     #[tokio::test]
+    #[ignore]
     async fn user_list_works() {
         let client = Client::new();
         client.set_token(&TOKEN);
 
-        let response = client.list_user_files().await.expect("failed to list");
+        let response = client.list_user_files().await.expect("Failed to list");
         dbg!(response);
     }
 }
