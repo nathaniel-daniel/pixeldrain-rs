@@ -97,6 +97,7 @@ pub async fn exec(client: &pixeldrain::Client, options: Options) -> anyhow::Resu
     let response = client.upload_file(file).await?;
 
     println!("Id: {}", response.id);
+    println!("Url: https://pixeldrain.com/u/{}", response.id);
 
     Ok(())
 }
